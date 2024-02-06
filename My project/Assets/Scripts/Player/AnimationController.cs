@@ -32,4 +32,10 @@ public class AnimationController : MonoBehaviour
     {
         WeaponManager.Instance.ChangeWeapon();
     }
+
+    public void SetAvailibity(int Index)
+    {
+        WeaponManager.Instance.Availability = Index == 0 ? false : true;
+    }
+
 }
