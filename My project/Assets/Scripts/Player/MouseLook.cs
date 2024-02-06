@@ -6,7 +6,7 @@ public class MouseLook : MonoBehaviour
 {
     public static MouseLook Instance;
     [SerializeField] Transform Player;
-    [SerializeField] Transform CameraParent;
+    [SerializeField] public Transform CameraParent;
     [SerializeField][Range(0f, 10f)] float Sensivity;
     float x;
     float y;
