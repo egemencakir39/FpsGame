@@ -15,7 +15,6 @@ public class WeaponManager : MonoBehaviour
     [SerializeField] Transform WeaponTransform;
 
     public bool Availability;
-    [SerializeField] bool Reload;
     [SerializeField] bool isFiring = false;
 
     [Header("Animastions")]
@@ -30,24 +29,51 @@ public class WeaponManager : MonoBehaviour
 
     [SerializeField] bool Fire;
     [SerializeField] int CurrentAmmo;
-    [SerializeField] int MaxAmmo;
-
+    [SerializeField] private float fireSpeed = 100f;
+    [SerializeField] private float Gravity = 9.81f;
+  
 
     RaycastHit FireRaycast;
     [SerializeField] float FireRange;
 
+    [Header("Reload Variaables")]
+
+    [SerializeField] bool Reload;
+    [SerializeField] int TotalAmmo;
+    [SerializeField] int MaxAmmo;
+    [SerializeField] AmmoTypes Type;
+ 
+    public enum AmmoTypes
+    {
+        _5_56,
+        _7_62,
+        _9mm,
+        _45cal,
+        _12ga
+
+    }
+
+
+    [Header("Ammo Types")]
+
+
+    [SerializeField] int _5_56;
+    [SerializeField] int _7_62;
+    [SerializeField] int _9mm;
+    [SerializeField] int _45cal;
+    [SerializeField] int _12ga;
 
     private void Update()
     {
         Inputs();
-
+        SetTotalAnmmo();
 
     }
     void Inputs()
     {
         WeaponTransform.localRotation = MouseLook.Instance.CameraParent.localRotation;
 
-        if (Input.GetMouseButton(0) && !Reload && CurrentAmmo > 0)
+        if (Input.GetMouseButton(0) && !Reload && CurrentAmmo > 0 && Availability)
         {
             if (!isFiring)
             {
@@ -55,7 +81,7 @@ public class WeaponManager : MonoBehaviour
             }
 
         }
-        if (Input.GetKeyDown(KeyCode.R))
+        if ((Input.GetKeyDown(KeyCode.R) || CurrentAmmo <= 0) && TotalAmmo > 0 && CurrentAmmo != MaxAmmo && !Fire)
         {
             startReload();
         }
@@ -64,7 +90,14 @@ public class WeaponManager : MonoBehaviour
     {
         isFiring = true;
         Fire = true;
-        Animation.Setbool(FireI_ID, Fire);
+        if (CurrentAmmo <= 1)
+        {
+            Animation.Setbool(FireII_ID, Fire);
+        }
+        else
+        {
+            Animation.Setbool(FireI_ID, Fire);
+        }
         Invoke("ResetIsFiring", .5f);
         CurrentAmmo--;
 
@@ -84,18 +117,71 @@ public class WeaponManager : MonoBehaviour
     {
         Fire = false;
         Animation.Setbool(FireI_ID, Fire);
+        Animation.Setbool(FireII_ID, Fire);
     }
     public void startReload()
     {
         Reload = true;
         Animation.Setbool(Reload_ID, Reload);
-        CurrentAmmo = MaxAmmo;
     }
     public void endReload()
     {
         Reload = false;
         Animation.Setbool(Reload_ID, Reload);
+
+        int Amount = SetReloadAmount(TotalAmmo);
+        CurrentAmmo += Amount;
+        if (Type == AmmoTypes._7_62)
+            _7_62 -= Amount;
+
+        else if (Type == AmmoTypes._5_56)
+            _5_56 -= Amount;
+
+        else if (Type == AmmoTypes._9mm)
+            _9mm -= Amount;
+
+        else if (Type == AmmoTypes._45cal)
+            _45cal -= Amount;
+
+        else if (Type == AmmoTypes._12ga)
+            _12ga -= Amount;
     }
+
+    void SetTotalAnmmo()
+    {
+     if(Type == AmmoTypes._7_62)
+            TotalAmmo = _7_62;
+
+     else if (Type == AmmoTypes._5_56)
+            TotalAmmo = _5_56;
+
+     else if (Type == AmmoTypes._9mm)
+            TotalAmmo = _9mm;
+
+     else if (Type == AmmoTypes._45cal)
+            TotalAmmo = _45cal;
+
+     else if (Type == AmmoTypes._12ga)
+            TotalAmmo = _12ga;
+    }
+
+    int SetReloadAmount(int InventoryAmount)
+    {
+        int AmountNeeded = MaxAmmo - CurrentAmmo;
+
+        if (AmountNeeded < InventoryAmount)
+        {
+            return AmountNeeded;
+        }
+        else
+        {
+            return InventoryAmount;
+        }
+        
+
+        
+    }
+
     public void ChangeWeapon()
     {
 
