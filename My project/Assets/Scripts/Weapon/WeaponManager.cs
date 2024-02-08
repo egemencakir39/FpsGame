@@ -63,6 +63,12 @@ public class WeaponManager : MonoBehaviour
     [SerializeField] int _45cal;
     [SerializeField] int _12ga;
 
+    [Header("Muzzle Flash")]
+
+    [SerializeField] Transform WeaponTip;
+    [SerializeField] GameObject MuzzleFlash;
+    [SerializeField] ParticleSystem BulletShells;
+
     private void Update()
     {
         Inputs();
@@ -105,9 +111,8 @@ public class WeaponManager : MonoBehaviour
         {
             if (FireRaycast.transform.GetComponent<Rigidbody>() != null)
                 FireRaycast.transform.GetComponent<Rigidbody>().AddForce(-FireRaycast.normal * 1000f);
-
-
         }
+         CreateMuzzleFlash();
     }
     private void ResetIsFiring()
     {
@@ -119,6 +124,15 @@ public class WeaponManager : MonoBehaviour
         Animation.Setbool(FireI_ID, Fire);
         Animation.Setbool(FireII_ID, Fire);
     }
+
+    void CreateMuzzleFlash()
+    {
+        GameObject MuzzleFlashCopy = Instantiate(MuzzleFlash, WeaponTip.position, WeaponTip.rotation, WeaponTip);
+        Destroy(MuzzleFlashCopy, 5f);
+
+        BulletShells.Play();
+    }
+
     public void startReload()
     {
         Reload = true;
