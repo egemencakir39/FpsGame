@@ -69,6 +69,14 @@ public class WeaponManager : MonoBehaviour
     [SerializeField] GameObject MuzzleFlash;
     [SerializeField] ParticleSystem BulletShells;
 
+    [Header("Damage")]
+
+    [SerializeField] int _5_56Damage = 20;
+    [SerializeField] int _7_62Damage = 30;
+    [SerializeField] int _9mmDamage = 15;
+    [SerializeField] int _45calDamage = 25;
+    [SerializeField] int _12gaDamage = 35;
+
     private void Update()
     {
         Inputs();
@@ -104,13 +112,39 @@ public class WeaponManager : MonoBehaviour
         {
             Animation.Setbool(FireI_ID, Fire);
         }
-        Invoke("ResetIsFiring", .5f);
+        Invoke("ResetIsFiring", .4f);
         CurrentAmmo--;
 
         if (Physics.Raycast(CameraController.Instance.Camera.position, CameraController.Instance.Camera.forward, out FireRaycast, FireRange))
         {
-            if (FireRaycast.transform.GetComponent<Rigidbody>() != null)
-                FireRaycast.transform.GetComponent<Rigidbody>().AddForce(-FireRaycast.normal * 1000f);
+            if (FireRaycast.transform.CompareTag("Enemy"))
+            {
+                int damage = 0;
+                switch (Type)
+                {
+                    case AmmoTypes._5_56:
+                        damage = _5_56Damage;
+                        break;
+                    case AmmoTypes._7_62:
+                        damage = _7_62Damage;
+                        break;
+                    case AmmoTypes._9mm:
+                        damage = _9mmDamage;
+                        break;
+                    case AmmoTypes._45cal:
+                        damage = _45calDamage;
+                        break;
+                    case AmmoTypes._12ga:
+                        damage = _12gaDamage;
+                        if (FireRaycast.transform.GetComponent<Rigidbody>() != null)
+                            FireRaycast.transform.GetComponent<Rigidbody>().AddForce(-FireRaycast.normal * 150f);
+                        break;
+                }
+
+              
+
+                Debug.Log("Düþman vuruldu! Hasar: " + damage);
+            }
         }
          CreateMuzzleFlash();
     }

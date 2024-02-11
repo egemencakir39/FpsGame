@@ -170,7 +170,7 @@ GameObject:
   - component: {fileID: 375144697}
   m_Layer: 0
   m_Name: Cube (1)
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -283,7 +283,7 @@ GameObject:
   - component: {fileID: 550077678}
   m_Layer: 0
   m_Name: Cube (3)
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -552,6 +552,11 @@ MonoBehaviour:
   WeaponTip: {fileID: 1459368945}
   MuzzleFlash: {fileID: 8963788666125692033, guid: db20d1d210deb2643afe1dba50391b92, type: 3}
   BulletShells: {fileID: 1982321308}
+  _5_56Damage: 20
+  _7_62Damage: 30
+  _9mmDamage: 15
+  _45calDamage: 25
+  _12gaDamage: 35
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -994,7 +999,7 @@ GameObject:
   - component: {fileID: 1528646694}
   m_Layer: 0
   m_Name: Cube (4)
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1301,7 +1306,7 @@ GameObject:
   - component: {fileID: 1883695091}
   m_Layer: 0
   m_Name: Cube (2)
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
