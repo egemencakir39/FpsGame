@@ -5,36 +5,29 @@ using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
 {
+    public static EnemyHealth Instance;
+    [SerializeField] private int Maxhealth = 100;
+    [SerializeField] private int CurrentHealth;
 
-    [SerializeField] private int health = 100;
-    
-
-    private void OnEnable()
+    private void Awake()
     {
-        WeaponManager.takeDamage += WeaponManager_Takedamages;
+        Instance = this;
     }
-
-    private void WeaponManager_Takedamages()
+    private void Start()
     {
-
-       // health -= WeaponManager.damage;
-        if (health <= 0)
+        CurrentHealth = Maxhealth;
+    }
+    public void TakeDamage(int damage)
+    {
+        CurrentHealth -= damage;
+        if (CurrentHealth <= 0)
         {
             Die();
-        }
+        }  
     }
-
-
-
     void Die()
     {
-        // Düþman ölümüyle ilgili iþlemler buraya yazýlabilir
         Destroy(gameObject);
-    }
-
-    private void OnDisable()
-    {
-        WeaponManager.takeDamage -= WeaponManager_Takedamages;
     }
 }
 
