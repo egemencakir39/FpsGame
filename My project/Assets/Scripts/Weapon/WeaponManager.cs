@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using System;
 
 
 public class WeaponManager : MonoBehaviour
@@ -11,6 +12,7 @@ public class WeaponManager : MonoBehaviour
     {
         Instance = this;
     }
+    public static Action takeDamage;
 
     [SerializeField] Transform WeaponTransform;
 
@@ -71,11 +73,14 @@ public class WeaponManager : MonoBehaviour
 
     [Header("Damage")]
 
+    
     [SerializeField] int _5_56Damage = 20;
     [SerializeField] int _7_62Damage = 30;
     [SerializeField] int _9mmDamage = 15;
     [SerializeField] int _45calDamage = 25;
     [SerializeField] int _12gaDamage = 35;
+
+   
 
     private void Update()
     {
@@ -140,10 +145,12 @@ public class WeaponManager : MonoBehaviour
                             FireRaycast.transform.GetComponent<Rigidbody>().AddForce(-FireRaycast.normal * 150f);
                         break;
                 }
-
-              
-
-                Debug.Log("Düþman vuruldu! Hasar: " + damage);
+                enemyhealth1 enemyHealth = FireRaycast.transform.GetComponent<enemyhealth1>();
+                if (enemyHealth != null)
+                {
+                    enemyHealth.TakeDamage(damage);
+                    Debug.Log("Düþman vuruldu! Hasar: " + damage);
+                }
             }
         }
          CreateMuzzleFlash();
