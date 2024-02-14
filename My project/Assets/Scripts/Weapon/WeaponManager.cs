@@ -116,7 +116,7 @@ public class WeaponManager : MonoBehaviour
         {
             Animation.Setbool(FireI_ID, Fire);
         }
-        Invoke("ResetIsFiring", .5f);
+        Invoke("ResetIsFiring", .42f);
         CurrentAmmo--;
 
         if (Physics.Raycast(CameraController.Instance.Camera.position, CameraController.Instance.Camera.forward, out FireRaycast, FireRange))
