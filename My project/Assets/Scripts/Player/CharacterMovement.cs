@@ -9,6 +9,9 @@ public class CharacterMovement : MonoBehaviour
     [SerializeField] CharacterController CC;
     float Horizontal;
     float Vertical;
+    public bool IsWalking = false;
+    public bool IsRuning = false;
+
     [Header("Transform")]
     [SerializeField] Transform CharacterBody;
     [SerializeField] Transform GroundCheck;
@@ -18,6 +21,7 @@ public class CharacterMovement : MonoBehaviour
     [SerializeField] float walkSpeed;
     [SerializeField] float runSpeed;
     [SerializeField] float jumpForce;
+    
 
     [Header("Gravity")]
 
@@ -61,13 +65,13 @@ public class CharacterMovement : MonoBehaviour
         GravityVector.y += GravityAc * Mathf.Pow(Time.deltaTime, 2);
         CC.Move(GravityVector);
     }
-    float TotalSpeed()
+    public float TotalSpeed()
     {
         if (Input.GetKey(KeyCode.LeftShift))
             return runSpeed;
         else
             return walkSpeed;
-
+        
     }
     void jump()
     {
