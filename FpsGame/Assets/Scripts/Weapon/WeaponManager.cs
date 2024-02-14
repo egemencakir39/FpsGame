@@ -37,7 +37,7 @@ public class WeaponManager : MonoBehaviour
     RaycastHit FireRaycast;
     [SerializeField] float FireRange;
 
-    [Header("Reload Variaables")]
+    [Header("Reload Variables")]
 
     [SerializeField] bool Reload;
     [SerializeField] int TotalAmmo;
@@ -72,7 +72,6 @@ public class WeaponManager : MonoBehaviour
 
     [Header("Damage")]
 
-    
     [SerializeField] int _5_56Damage = 20;
     [SerializeField] int _7_62Damage = 30;
     [SerializeField] int _9mmDamage = 15;
@@ -85,7 +84,6 @@ public class WeaponManager : MonoBehaviour
     {
         Inputs();
         SetTotalAnmmo();
-
     }
     void Inputs()
     {
@@ -149,6 +147,8 @@ public class WeaponManager : MonoBehaviour
                 {
                     enemyHealth.TakeDamage(damage);
                 }
+
+
                 Debug.Log("Düþman vuruldu! Hasar: " + damage);
                 
             }
