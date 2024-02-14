@@ -25,8 +25,8 @@ public class HeadBob : MonoBehaviour
 
     void SetHeadBob()
     {
-        if (CharacterMovement.Instance.TotalSpeed == 0f) WalkingTime = 0f;
-        else WalkingTime += Time.deltaTime;
+        //if (CharacterMovement.Instance.TotalSpeed = 0f) WalkingTime = 0f;
+       // else WalkingTime += Time.deltaTime;
 
         TargetVector = HeadParent.position + Setoffset(WalkingTime);
         Head.position = Vector3.Lerp(Head.position, TargetVector, LerpSpeed * Time.deltaTime);
