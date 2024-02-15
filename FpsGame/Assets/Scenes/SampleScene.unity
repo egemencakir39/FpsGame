@@ -8666,8 +8666,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5867368260818589566}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.96, y: 0.6, z: -9.74}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -0.96, y: 1.12, z: -23}
+  m_LocalScale: {x: 1.01, y: 2.39, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -8742,8 +8742,9 @@ GameObject:
   - component: {fileID: 5867368260818589564}
   - component: {fileID: 5867368260818589567}
   - component: {fileID: 5867368260818589560}
+  - component: {fileID: 5867368260818589568}
   m_Layer: 0
-  m_Name: Cube (5)
+  m_Name: Gerilla
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8765,6 +8766,23 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &5867368260818589568
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5867368260818589566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64e42dfcaab357545aa803c5ebce058a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 1625892471}
+  moveSpeed: 5
+  DetectionRange: 19.34
+  StopDistance: 3
+  RotationSpeed: 10.63
 --- !u!1 &5878936379927939786
 GameObject:
   m_ObjectHideFlags: 0
