@@ -4,21 +4,29 @@ using UnityEngine;
 
 public class IdleBehavior : StateMachineBehaviour
 {
-    
+    Transform player;
     float timer;
+    float ChaseRange = 15;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        timer = 0;    
+        timer = 0;
+        player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     //OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         timer += Time.deltaTime;
-        if(timer > 5) 
+        if (timer > 5)
         {
             animator.SetBool("isPatrolling", true);
+        }
+
+        float distance = Vector3.Distance(animator.transform.position, player.position);
+        if (distance < ChaseRange)
+        {
+            animator.SetBool("isChasing", true);
         }
     }
 
