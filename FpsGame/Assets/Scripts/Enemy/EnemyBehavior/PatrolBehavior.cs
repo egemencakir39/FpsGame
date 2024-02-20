@@ -9,7 +9,7 @@ public class PatrolBehavior : StateMachineBehaviour
     List<Transform> wayPoints = new List<Transform>();
     NavMeshAgent agent;
     Transform player;
-    float ChaseRange = 15;
+    float ChaseRange = 5;
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         timer = 0;
@@ -44,6 +44,10 @@ public class PatrolBehavior : StateMachineBehaviour
         if (distance < ChaseRange)
         {
             animator.SetBool("isChasing", true);
+        }
+        else
+        {
+            animator.SetBool("isPatrolling", true);
         }
     }
 
