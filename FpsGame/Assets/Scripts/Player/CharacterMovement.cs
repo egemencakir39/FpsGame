@@ -9,8 +9,7 @@ public class CharacterMovement : MonoBehaviour
     [SerializeField] CharacterController CC;
     float Horizontal;
     float Vertical;
-    public bool IsWalking = false;
-    public bool IsRuning = false;
+   
 
     [Header("Transform")]
     [SerializeField] Transform CharacterBody;
@@ -18,6 +17,8 @@ public class CharacterMovement : MonoBehaviour
 
     [Header("Movement")]
 
+    public bool IsWalking;
+    public bool IsRuning;
     [SerializeField] float walkSpeed;
     [SerializeField] float runSpeed;
     [SerializeField] float jumpForce;
@@ -41,6 +42,7 @@ public class CharacterMovement : MonoBehaviour
     private void Update()
     {
         jump();
+        CheckMovement();
     }
     void Movement()
     {
@@ -48,6 +50,27 @@ public class CharacterMovement : MonoBehaviour
         Vertical = Input.GetAxis("Vertical");
         Vector3 Move = CharacterBody.right * Horizontal + CharacterBody.forward * Vertical;
         CC.Move(Move * TotalSpeed() * Time.deltaTime);
+    }
+    void CheckMovement()
+    {
+        if ((Horizontal != 0f || Vertical != 0f) && (Horizontal != 0f || Vertical != 0f))
+        {
+            if (TotalSpeed() == runSpeed)
+            {
+                IsRuning = true;
+                IsWalking = false;
+            }
+            if (TotalSpeed() == walkSpeed)
+            {
+                IsRuning = false;
+                IsWalking = true;
+            }
+        }
+        else
+        {
+            IsRuning = false;
+            IsWalking = false;
+        }
     }
 
     void Gravity()
