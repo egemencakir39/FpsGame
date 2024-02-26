@@ -1120,6 +1120,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cc296fa786f4fa469a642181c610578, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animationClip: {fileID: 7400000, guid: 8974b5c0c3eb4cb4391204d6523d2cba, type: 2}
   WeaponTransform: {fileID: 913951592}
   Availability: 0
   isFiring: 0

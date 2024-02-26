@@ -8,6 +8,7 @@ using JetBrains.Annotations;
 public class WeaponManager : MonoBehaviour
 {
     public static WeaponManager Instance;
+    public AnimationClip animationClip;
     private void Awake()
     {
         Instance = this;
@@ -77,8 +78,11 @@ public class WeaponManager : MonoBehaviour
     [SerializeField] int _9mmDamage = 15;
     [SerializeField] int _45calDamage = 25;
     [SerializeField] int _12gaDamage = 35;
-    
-   
+
+    private void Start()
+    {
+        Debug.Log("Animasyon süresi: " + animationClip.length + " saniye");
+    }
 
     private void Update()
     {
@@ -114,7 +118,7 @@ public class WeaponManager : MonoBehaviour
         {
             Animation.Setbool(FireI_ID, Fire);
         }
-        Invoke("ResetIsFiring", .39f);
+        Invoke("ResetIsFiring", .38f);
         CurrentAmmo--;
 
         if (Physics.Raycast(CameraController.Instance.Camera.position, CameraController.Instance.Camera.forward, out FireRaycast, FireRange))
