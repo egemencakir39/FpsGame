@@ -5,6 +5,7 @@ using UnityEngine;
 using System;
 using JetBrains.Annotations;
 
+
 public class WeaponManager : MonoBehaviour
 {
     public static WeaponManager Instance;
@@ -79,6 +80,11 @@ public class WeaponManager : MonoBehaviour
     [SerializeField] int _45calDamage = 25;
     [SerializeField] int _12gaDamage = 35;
 
+    [Header("Bullet Holes & Particles")]
+
+    [SerializeField] GameObject[] BulletHoles;
+
+
     private void Start()
     {
         Debug.Log("Animasyon süresi: " + animationClip.length + " saniye");
@@ -123,6 +129,9 @@ public class WeaponManager : MonoBehaviour
 
         if (Physics.Raycast(CameraController.Instance.Camera.position, CameraController.Instance.Camera.forward, out FireRaycast, FireRange))
         {
+            GameObject copyBulletHole = Instantiate(BulletHoles[UnityEngine.Random.Range(0, BulletHoles.Length)], FireRaycast.point, Quaternion.LookRotation(FireRaycast.normal));
+            copyBulletHole.transform.parent = FireRaycast.transform;
+            Destroy(copyBulletHole, 15f);
             if (FireRaycast.transform.CompareTag("Enemy"))
             {
               int damage = 0;
