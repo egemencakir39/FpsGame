@@ -37,5 +37,5 @@ public class AnimationController : MonoBehaviour
     {
         WeaponManager.Instance.Availability = Index == 0 ? false : true;
     }
-
+   
 }

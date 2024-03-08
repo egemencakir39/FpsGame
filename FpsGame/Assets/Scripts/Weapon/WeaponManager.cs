@@ -4,6 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using System;
 using JetBrains.Annotations;
+using UnityEngine.UI;
 
 
 public class WeaponManager : MonoBehaviour
@@ -84,20 +85,22 @@ public class WeaponManager : MonoBehaviour
 
     [SerializeField] GameObject[] BulletHoles;
 
+    [Header("Indýcators")]
 
-    private void Start()
-    {
-        Debug.Log("Animasyon süresi: " + animationClip.length + " saniye");
-    }
-
+    public Text CurrentAmmoText;
+    public Text TotalAmmoText;
     private void Update()
     {
         Inputs();
         SetTotalAnmmo();
+        
     }
+    
     void Inputs()
     {
         WeaponTransform.localRotation = MouseLook.Instance.CameraParent.localRotation;
+        CurrentAmmoText.text = CurrentAmmo.ToString();
+        TotalAmmoText.text = TotalAmmo.ToString();
 
         if (Input.GetMouseButton(0) && !Reload && CurrentAmmo > 0 && Availability)
         {
@@ -107,7 +110,7 @@ public class WeaponManager : MonoBehaviour
             }
 
         }
-        if ((Input.GetKeyDown(KeyCode.R) || CurrentAmmo <= 0) && TotalAmmo > 0 && CurrentAmmo != MaxAmmo && !Fire)
+        if ((Input.GetKeyDown(KeyCode.R) || CurrentAmmo <= 0) && TotalAmmo > 0 && CurrentAmmo != MaxAmmo && !isFiring)
         {
             startReload();
         }
@@ -124,7 +127,7 @@ public class WeaponManager : MonoBehaviour
         {
             Animation.Setbool(FireI_ID, Fire);
         }
-        Invoke("ResetIsFiring", .38f);
+       Invoke("ResetIsFiring", .37f);
         CurrentAmmo--;
 
         if (Physics.Raycast(CameraController.Instance.Camera.position, CameraController.Instance.Camera.forward, out FireRaycast, FireRange))
@@ -162,7 +165,7 @@ public class WeaponManager : MonoBehaviour
                 }
 
 
-                Debug.Log("Düþman vuruldu! Hasar: " + damage);
+                Debug.Log("dusman vuruldu" + damage);
                 
             }
         }
@@ -174,9 +177,11 @@ public class WeaponManager : MonoBehaviour
     }
     public void endFire()
     {
+       
         Fire = false;
         Animation.Setbool(FireI_ID, Fire);
         Animation.Setbool(FireII_ID, Fire);
+       
     }
 
     void CreateMuzzleFlash()
@@ -254,6 +259,28 @@ public class WeaponManager : MonoBehaviour
     {
 
     }
+    public void AddAmmo(WeaponManager.AmmoTypes Type, int Amount)
+    {
+        if (Type == AmmoTypes._12ga)
+        {
+            _12ga += Amount;
+        }
+        else if (Type == AmmoTypes._5_56)
+        {
+            _5_56 += Amount;
+        }
+        else if (Type == AmmoTypes._9mm)
+        {
+            _9mm += Amount;
+        }
+        else if (Type == AmmoTypes._45cal)
+        {
+            _45cal += Amount;
+        }
+        else if (Type == AmmoTypes._7_62)
+        {
+            _7_62 += Amount;
+        }
+    }
 
-  
 }
