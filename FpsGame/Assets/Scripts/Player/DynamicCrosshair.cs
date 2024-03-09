@@ -5,9 +5,10 @@ using UnityEngine.UI;
 
 public class DynamicCrosshair : MonoBehaviour
 {
+    public static DynamicCrosshair Instance;
     [SerializeField] RectTransform Crosshair;
-   
 
+    [HideInInspector] public bool Avaiable;
     [Header("crosshair v1")]
 
     [SerializeField] float maxSize;
@@ -18,7 +19,10 @@ public class DynamicCrosshair : MonoBehaviour
     [Header("")]
 
     [SerializeField] float Speed;
-
+    private void Awake()
+    {
+        Instance = this;
+    }
     private void Update()
     {
         Inputs();
@@ -27,7 +31,7 @@ public class DynamicCrosshair : MonoBehaviour
 
     void SetSize()
     {
-        Crosshair.sizeDelta = new Vector2(currentSize, currentSize); 
+        Crosshair.sizeDelta = new Vector2(currentSize, currentSize);
     }
 
     void Inputs()
@@ -41,10 +45,12 @@ public class DynamicCrosshair : MonoBehaviour
         {
             SetMax();
         }
-        if(CharacterMovement.Instance.IsRuning)
+        if (CharacterMovement.Instance.IsRuning)
         {
             SetMaxV2();
-        } 
+        }
+
+        
     }
     void SetMaxV2()
     {
