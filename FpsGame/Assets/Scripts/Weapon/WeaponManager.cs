@@ -7,6 +7,8 @@ using JetBrains.Annotations;
 using UnityEngine.UI;
 
 
+
+
 public class WeaponManager : MonoBehaviour
 {
     public static WeaponManager Instance;
@@ -31,7 +33,7 @@ public class WeaponManager : MonoBehaviour
 
     [Header("Fire Variables")]
 
-    [SerializeField] bool Fire;
+    [SerializeField] public bool Fire;
     [SerializeField] int CurrentAmmo;
     [SerializeField] private float fireSpeed = 100f;
     [SerializeField] private float Gravity = 9.81f;
@@ -89,6 +91,19 @@ public class WeaponManager : MonoBehaviour
 
     public Text CurrentAmmoText;
     public Text TotalAmmoText;
+
+    [Header("Bullet Scatter")]
+
+    [SerializeField] Quaternion MaxScatter;
+    [SerializeField] Quaternion MinScatter;
+    [SerializeField] Quaternion MaxScatterRun;
+
+    Quaternion CurrentScatter;
+
+    [Header("ReCoil")]
+
+    [SerializeField] Vector2 MaxRecoil;
+    [SerializeField] Vector2 MinRecoil;
     private void Update()
     {
         Inputs();
@@ -102,13 +117,9 @@ public class WeaponManager : MonoBehaviour
         CurrentAmmoText.text = CurrentAmmo.ToString();
         TotalAmmoText.text = TotalAmmo.ToString();
 
-        if (Input.GetMouseButton(0) && !Reload && CurrentAmmo > 0 && Availability)
+        if (Input.GetMouseButton(0) && !Reload && CurrentAmmo > 0 && Availability && !isFiring)
         {
-            if (!isFiring)
-            {
-                startFire();
-            }
-
+           startFire();
         }
         if ((Input.GetKeyDown(KeyCode.R) || CurrentAmmo <= 0) && TotalAmmo > 0 && CurrentAmmo != MaxAmmo && !isFiring)
         {
@@ -127,10 +138,10 @@ public class WeaponManager : MonoBehaviour
         {
             Animation.Setbool(FireI_ID, Fire);
         }
-       Invoke("ResetIsFiring", .37f);
+       Invoke("ResetIsFiring", .38f);
         CurrentAmmo--;
 
-        if (Physics.Raycast(CameraController.Instance.Camera.position, CameraController.Instance.Camera.forward, out FireRaycast, FireRange))
+        if (Physics.Raycast(CameraController.Instance.Camera.position,SetScatter() * CameraController.Instance.Camera.forward, out FireRaycast, FireRange))
         {
             GameObject copyBulletHole = Instantiate(BulletHoles[UnityEngine.Random.Range(0, BulletHoles.Length)], FireRaycast.point, Quaternion.LookRotation(FireRaycast.normal));
             copyBulletHole.transform.parent = FireRaycast.transform;
@@ -166,10 +177,11 @@ public class WeaponManager : MonoBehaviour
 
 
                 Debug.Log("dusman vuruldu" + damage);
-                
+
             }
         }
-         CreateMuzzleFlash();
+        CreateMuzzleFlash();
+        SetRecoil();
     }
     private void ResetIsFiring()
     {
@@ -181,7 +193,7 @@ public class WeaponManager : MonoBehaviour
         Fire = false;
         Animation.Setbool(FireI_ID, Fire);
         Animation.Setbool(FireII_ID, Fire);
-       
+
     }
 
     void CreateMuzzleFlash()
@@ -190,6 +202,32 @@ public class WeaponManager : MonoBehaviour
         Destroy(MuzzleFlashCopy, 5f);
 
         BulletShells.Play();
+    }
+
+    Quaternion SetScatter()
+    {
+        if (CharacterMovement.Instance.IsWalking)
+        {
+            CurrentScatter = Quaternion.Euler(UnityEngine.Random.Range(-MaxScatter.eulerAngles.x, MaxScatter.eulerAngles.x), UnityEngine.Random.Range(-MaxScatter.eulerAngles.y, MaxScatter.eulerAngles.y), UnityEngine.Random.Range(-MaxScatter.eulerAngles.z, MaxScatter.eulerAngles.z));
+        }
+        else if (CharacterMovement.Instance.IsRuning)
+        {
+            CurrentScatter = Quaternion.Euler(UnityEngine.Random.Range(-MaxScatterRun.eulerAngles.x, MaxScatterRun.eulerAngles.x), UnityEngine.Random.Range(-MaxScatterRun.eulerAngles.y, MaxScatterRun.eulerAngles.y), UnityEngine.Random.Range(-MaxScatterRun.eulerAngles.z, MaxScatterRun.eulerAngles.z));
+        }
+        else
+        {
+            CurrentScatter = MinScatter;
+        }
+
+        return CurrentScatter;
+    }
+
+    void SetRecoil()
+    {
+        float X = UnityEngine.Random.Range(MaxRecoil.x, MinRecoil.x);
+        float Y = UnityEngine.Random.Range(MaxRecoil.y, MinRecoil.y);
+
+        MouseLook.Instance.AddRecoil(X, Y);
     }
 
     public void startReload()

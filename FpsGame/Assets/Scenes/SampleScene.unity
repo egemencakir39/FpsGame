@@ -1546,6 +1546,11 @@ MonoBehaviour:
   - {fileID: 6443059518855926098, guid: 7f00599ca03a91b46b0ec744297cb461, type: 3}
   CurrentAmmoText: {fileID: 1020655958}
   TotalAmmoText: {fileID: 1741827449}
+  MaxScatter: {x: 0.03607422, y: 0.03363976, z: 0.03363976, w: 0.9982161}
+  MinScatter: {x: 0, y: 0, z: 0, w: 1}
+  MaxScatterRun: {x: 0.05492791, y: 0.049457308, z: 0.049457308, w: 0.99603754}
+  MaxRecoil: {x: 1, y: 0.5}
+  MinRecoil: {x: -1, y: 0.25}
 --- !u!114 &913951594
 MonoBehaviour:
   m_ObjectHideFlags: 0

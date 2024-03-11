@@ -8,8 +8,8 @@ public class MouseLook : MonoBehaviour
     [SerializeField] Transform Player;
     [SerializeField] public Transform CameraParent;
     [SerializeField][Range(0f, 10f)] float Sensivity;
-    float x;
-    float y;
+    float X;
+    float Y;
     private void Awake()
     {
         Instance = this;
@@ -25,13 +25,17 @@ public class MouseLook : MonoBehaviour
     }
     void MouseControl()//Mouse Kontrolcüsü
     {
-        x = Input.GetAxis("Mouse X") * Sensivity * Time.deltaTime * 15f;
-        y += Input.GetAxis("Mouse Y") * Sensivity * Time.deltaTime * 15f;
+        X += Input.GetAxis("Mouse X") * Sensivity * Time.deltaTime * 15f;
+        Y += Input.GetAxis("Mouse Y") * Sensivity * Time.deltaTime * 15f;
 
-        y = Mathf.Clamp(y, -80f, 80f);
+        Y = Mathf.Clamp(Y, -80f, 80f);
 
-        CameraParent.localRotation= Quaternion.Euler(-y, 0f, 0f);
-        Player.Rotate(Vector3.up * x);
+        CameraParent.localRotation= Quaternion.Euler(-Y, 0f, 0f);
+        Player.localRotation = Quaternion.Euler(0f, X, 0f);
     }
-
+    public void AddRecoil(float x, float y)
+    {
+        X += x;
+        Y += y;
+    }
 }
