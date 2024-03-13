@@ -104,6 +104,8 @@ public class WeaponManager : MonoBehaviour
 
     [SerializeField] Vector2 MaxRecoil;
     [SerializeField] Vector2 MinRecoil;
+    [SerializeField] Recoil recoil;
+
     private void Update()
     {
         Inputs();
@@ -182,6 +184,7 @@ public class WeaponManager : MonoBehaviour
         }
         CreateMuzzleFlash();
         SetRecoil();
+        recoil.SetTarget();
     }
     private void ResetIsFiring()
     {
@@ -297,6 +300,7 @@ public class WeaponManager : MonoBehaviour
     {
 
     }
+
     public void AddAmmo(WeaponManager.AmmoTypes Type, int Amount)
     {
         if (Type == AmmoTypes._12ga)
