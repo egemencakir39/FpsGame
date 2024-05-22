@@ -43,6 +43,7 @@ public class CharacterMovement : MonoBehaviour
     {
         jump();
         CheckMovement();
+        
     }
     void Movement()
     {

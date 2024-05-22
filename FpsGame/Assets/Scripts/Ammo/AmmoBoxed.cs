@@ -8,7 +8,7 @@ public class AmmoBoxed : MonoBehaviour, IInteractable
     public WeaponManager.AmmoTypes Type;
     public int Amount;
 
-    string IInteractable.Name { get => ItemName; set => ItemName = value; }
+    string IInteractable.Name { get => ItemName;  }
 
     void IInteractable.Interact()
     {

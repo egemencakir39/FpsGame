@@ -33,6 +33,7 @@ public class ObjectInteraction : MonoBehaviour
                 {
                     InteractionRaycast.transform.GetComponent<IInteractable>().Interact();
                 }
+               
             }
             else
             {
