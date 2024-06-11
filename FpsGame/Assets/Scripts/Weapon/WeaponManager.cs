@@ -104,7 +104,7 @@ public class WeaponManager : MonoBehaviour
 
     [SerializeField] Vector2 MaxRecoil;
     [SerializeField] Vector2 MinRecoil;
-    [SerializeField] Recoil recoil;
+
 
     [Header("CameraShake")]
     [SerializeField] private CameraShake CameraShakeControl;
@@ -195,7 +195,7 @@ public class WeaponManager : MonoBehaviour
         }
         CreateMuzzleFlash();
         SetRecoil();
-        recoil.SetTarget();
+       
        
     }
     private void ResetIsFiring()
