@@ -30,12 +30,15 @@ public class AnimationController : MonoBehaviour
     }
     public void WeaponDown()
     {
-        WeaponManager.Instance.ChangeWeapon();
+      // WeaponManager.Instance.ChangeWeapon();
     }
 
     public void SetAvailibity(int Index)
     {
         WeaponManager.Instance.Availability = Index == 0 ? false : true;
     }
-   
+   public void Walk()
+    {
+       
+    }
 }

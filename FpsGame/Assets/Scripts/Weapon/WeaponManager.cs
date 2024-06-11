@@ -106,6 +106,15 @@ public class WeaponManager : MonoBehaviour
     [SerializeField] Vector2 MinRecoil;
     [SerializeField] Recoil recoil;
 
+    [Header("CameraShake")]
+    [SerializeField] private CameraShake CameraShakeControl;
+   // [SerializeField] private float ShakeIntensity = 5;
+   // [SerializeField] private float ShakeTime = 1;
+
+    private void Start()
+    {
+       // _cameraShake = FindObjectOfType<CameraShake>();
+    }
     private void Update()
     {
         Inputs();
@@ -130,6 +139,7 @@ public class WeaponManager : MonoBehaviour
     }
     public void startFire()
     {
+        CameraShakeControl.ShakeCamera();
         isFiring = true;
         Fire = true;
         if (CurrentAmmo <= 1)
@@ -145,6 +155,7 @@ public class WeaponManager : MonoBehaviour
 
         if (Physics.Raycast(CameraController.Instance.Camera.position,SetScatter() * CameraController.Instance.Camera.forward, out FireRaycast, FireRange))
         {
+
             GameObject copyBulletHole = Instantiate(BulletHoles[UnityEngine.Random.Range(0, BulletHoles.Length)], FireRaycast.point, Quaternion.LookRotation(FireRaycast.normal));
             copyBulletHole.transform.parent = FireRaycast.transform;
             Destroy(copyBulletHole, 15f);
@@ -177,14 +188,15 @@ public class WeaponManager : MonoBehaviour
                     enemyHealth.TakeDamage(damage);
                 }
 
-
-                Debug.Log("dusman vuruldu" + damage);
+                
+                
 
             }
         }
         CreateMuzzleFlash();
         SetRecoil();
         recoil.SetTarget();
+       
     }
     private void ResetIsFiring()
     {
@@ -296,10 +308,7 @@ public class WeaponManager : MonoBehaviour
         
     }
 
-    public void ChangeWeapon()
-    {
-
-    }
+    
 
     public void AddAmmo(WeaponManager.AmmoTypes Type, int Amount)
     {
