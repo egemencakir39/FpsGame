@@ -25126,9 +25126,9 @@ Camera:
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
-  m_SensorSize: {x: 36, y: 24}
+  m_SensorSize: {x: 1, y: 1}
   m_LensShift: {x: 0, y: 0}
-  m_FocalLength: 50
+  m_FocalLength: 0.81115144
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -32484,8 +32484,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a147bc64a072ad1489586ae2c3c55ca3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Amount: 0.002
-  Frequency: 10
+  Amount: 0.00661
+  Frequency: 14
   Smooth: 10
 --- !u!1 &1296232341
 GameObject:
@@ -39356,6 +39356,7 @@ GameObject:
   - component: {fileID: 1527892158}
   - component: {fileID: 1527892160}
   - component: {fileID: 1527892159}
+  - component: {fileID: 1527892161}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -39413,7 +39414,7 @@ MonoBehaviour:
     NearClipPlane: 0.1
     FarClipPlane: 5000
     Dutch: 0
-    ModeOverride: 0
+    ModeOverride: 2
     LensShift: {x: 0, y: 0}
     GateFit: 2
     m_SensorSize: {x: 1, y: 1}
@@ -39515,6 +39516,21 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!114 &1527892161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1527892152}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a147bc64a072ad1489586ae2c3c55ca3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Amount: 0.00648
+  Frequency: 14
+  Smooth: 10
 --- !u!1 &1528646693
 GameObject:
   m_ObjectHideFlags: 0
